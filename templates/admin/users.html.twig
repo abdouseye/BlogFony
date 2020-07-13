@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} La liste des utilisateurs {% endblock %}
+
+{% block body %}
+<h1>Liste des utilisateurs </h1>
+
+<table class="table">
+    <thead>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {# boucle for pour lister les utilisateurs#}
+        {% for user in users  %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                {# Dans notre colonne role on recupére un tableau avec une boucle for#}
+                {% for role in user.roles %}
+                {% if role == "ROLE_ADMIN" %}
+                    Administrateur
+                {% elseif role == "ROLE_EDITOR" %}
+                    Editeur
+                {% elseif role == "ROLE_USER" %}
+                    Utilisateur
+                {% endif %}
+                {% endfor %}
+
+            </td>
+            <td><a href="{{ path('admin_modifier_utilisateur', {'id' : user.id}) }}"
+                    class="btn btn-warning">Modifier</a></td>
+        </tr>
+
+        {% else %}
+        <tr>
+            <td>colspan=5> Votre liste d'utilisateurs est vide </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

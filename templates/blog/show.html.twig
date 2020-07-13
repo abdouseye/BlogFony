@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<article class="container-fluid col-lg-6">
+  <h2> {{ article.title }} </h2>
+  <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la catégorie {{ article.category.title }}</div>
+  <div class="content text-justify">
+    <img src= {{article.image}} alt="" style="width:100%">
+    {{ article.content | raw }}
+  </div>
+  </article>
+
+  <section id="commentaires" class="container-fluid col-lg-6">
+    <h1> Votre article à {{ article.comments | length }} commentaires:</h1>
+      {% for comment in article.comments %}
+    <div class="comment text-justify ">
+      <div class="row">
+        <div class="col-12 ">
+           <b> {{comment.author}} </b>(<small>{{ comment.createdAt | date ('d/m/Y à H:i') }} </small>)
+
+        </div>
+
+        <div class="col-12 my-0">
+            {{comment.content | raw}}
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    {% if app.user %}
+
+    {{ form_start(commentForm) }}
+    {{ form_row(commentForm.author, {'attr' : {'placeholder' : "Votre nom"}}) }}
+    {{ form_row(commentForm.content, {'attr' : {'placeholder' : "Votre commentaire"}}) }}
+
+    <button type="submit" class="btn btn-success">Poster !</button>
+    {{ form_end(commentForm) }}
+
+    {% else %}
+     <h2> Connectez vous ppour laisser un commentaire </h2>
+      <a href="{{ path('security_login') }}" class="btn btn-primary">
+        Connexion
+      </a>
+    {% endif %}
+  </section>
+    
+{% endblock %}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Bienvenue dans le blog du Factotum!{% endblock %}</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.min.css">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand display-8 font-italic" href=" {{ path('home') }} ">BlogSymfony</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href=" {{ path('blog') }} ">Articles</a>
+                </li>
+
+                {% if not app.user %}
+                <li class="nav-item">
+                    <a href="{{ path('security_login') }}" class="nav-link">
+                        Connexion
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{{ path('security_logout') }}" class="nav-link">
+                        Déconnexion
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            {% if not app.user %}
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="{{ path('security_registration') }}" class="nav-link">
+                        Inscription
+                    </a>
+                </li>
+            </ul>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="{{ path('admin_index') }}" class="nav-link">
+                        Administration
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href=" {{ path('blog_create') }} ">Créer un article</a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+    
+    <div class="container-fluid">
+        {% block body %}
+        {% endblock %}
+    {% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
+    {% endblock %}
+</div>
+<hr class="my-4"> 
+    <h1 class="display-4 font-italic">Factotum web</h1>
+    <p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
+ 
+</body>
+</html>
