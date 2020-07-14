@@ -43,7 +43,6 @@ class BlogController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/blog", name="blog")
      */
@@ -80,7 +79,7 @@ class BlogController extends AbstractController
         }
         // création du formulaire lié à mon article (binder) et le configurer en lui donnant les champs que l'on veut y ajouter
 
-        $form = $this->createForm(ArticleType::class, $article); // en paramétre le nom de la class du formulaire et l'entité auquel je veux le binder
+        $form = $this->createForm(ArticleType::class, $article); // en paramétre le nom de la class du formulaire et l'entité auquel je veux le binder(relier)
         $form->handleRequest($request); // analyse de la requete
         if ($form->isSubmitted() && $form->isValid()) { // vérification du submit et de la validité des données saisies
 
@@ -99,6 +98,11 @@ class BlogController extends AbstractController
             'editMode' => $article->getId() !== null
         ]);
     }
+
+
+
+
+    
     // création d'une fonction pour afficher un article
 
     /**

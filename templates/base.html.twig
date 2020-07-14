@@ -44,7 +44,7 @@
                 </li>
             </ul>
             {% endif %}
-            {% if is_granted('ROLE_ADMIN') %}
+           
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a href="{{ path('admin_index') }}" class="nav-link">
@@ -54,6 +54,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href=" {{ path('blog_create') }} ">Créer un article</a>
                 </li>
+                
             </ul>
             {% endif %}
         </div>

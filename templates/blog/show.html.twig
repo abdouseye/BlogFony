@@ -1,8 +1,21 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
 
+
+
 <article class="container-fluid col-lg-6">
+  <hr>
+  {% if is_granted('ROLE_ADMIN') %}
+  <button class="btn btn-warning">
+    <a href="{{ path('blog_edit', {'id': article.id}) }}" class="nav-link">
+        Modifier l'article
+    </a>
+  </button>
+  <hr>
+  {% endif %}
+  
   <h2> {{ article.title }} </h2>
   <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la catégorie {{ article.category.title }}</div>
   <div class="content text-justify">
@@ -10,6 +23,8 @@
     {{ article.content | raw }}
   </div>
   </article>
+
+  <hr>
 
   <section id="commentaires" class="container-fluid col-lg-6">
     <h1> Votre article à {{ article.comments | length }} commentaires:</h1>
